@@ -1,6 +1,6 @@
 <template>
     <div>
-        <head-top signin-up="home">
+        <head-top signinUP="home">
             <span slot="logo" class="head_logo">ele.me</span>
         </head-top>
         <nav class="city_nav">
@@ -36,18 +36,13 @@ export default {
     components:{
         'head-top':headTop
     },
-    mounted(){
-        cityGuess()
-            .then(res=>res.json())
-            .then(data=>{
-                this.guessCityid=data.id
-                this.guessCity=data.name
-            })
-        hotcity()
-            .then(res=>res.json())
-            .then(data=>{
-                this.hotcity=data
-        })
+    async mounted(){
+        const cityData =  await cityGuess()
+            this.guessCityid = cityData.id
+            this.guessCity = cityData.name
+
+        const hotcityData=await hotcity()
+            this.hotcity=await hotcityData
     }
 }
 </script>
